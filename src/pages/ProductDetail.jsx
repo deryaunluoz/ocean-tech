@@ -6,9 +6,10 @@ import { fetchProducts } from '../store/actions/productActions'
 import { addToCart } from '../store/actions/shoppingCartActions'
 import { toast } from 'react-toastify'
 import api from '../api/axios'
+import ProductCard from '../components/ProductCard'
 
 export default function ProductDetail() {
-  const { productId, gender, categoryName, categoryId } = useParams()
+  const { productId, gender, categoryName } = useParams()
   const dispatch = useDispatch()
   const { productList } = useSelector(state => state.product)
 
@@ -16,7 +17,6 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true)
   const [activeImage, setActiveImage] = useState(0)
 
-  // T16: API'den ürünü çek
   useEffect(() => {
     setLoading(true)
     api.get(`/products/${productId}`)
@@ -27,12 +27,11 @@ export default function ProductDetail() {
       .catch(() => setLoading(false))
   }, [productId])
 
-  // Benzer ürünler için kategorideki ürünleri çek
   useEffect(() => {
-    if (categoryId) {
-      dispatch(fetchProducts({ category: categoryId, limit: 4 }))
+    if (product?.category?.id) {
+      dispatch(fetchProducts({ category: product.category.id, limit: 4 }))
     }
-  }, [categoryId])
+  }, [product])
 
   const handleAddToCart = () => {
     dispatch(addToCart(product))
@@ -59,12 +58,11 @@ export default function ProductDetail() {
   }
 
   const images = product.images || []
-  const mainImage = images[activeImage]?.url || 'https://via.placeholder.com/500'
+  const mainImage = images[activeImage]?.url || 'https://placehold.co/500x500'
   const rating = Math.round(product.rating || 0)
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Geri butonu - T16 */}
       <button
         onClick={() => window.history.back()}
         className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition mb-6 text-sm"
@@ -72,20 +70,15 @@ export default function ProductDetail() {
         <ArrowLeft size={16} /> Geri Dön
       </button>
 
-      {/* Breadcrumb */}
       <div className="text-sm text-gray-400 mb-8 flex items-center gap-1 flex-wrap">
         <Link to="/" className="hover:text-blue-600">Anasayfa</Link>
         <span>/</span>
         <Link to="/shop" className="hover:text-blue-600">Mağaza</Link>
         <span>/</span>
-        <Link to={`/shop/${gender}/${categoryName}/${categoryId}`} className="hover:text-blue-600 capitalize">{categoryName}</Link>
-        <span>/</span>
         <span className="text-gray-800 font-medium truncate max-w-[200px]">{product.name}</span>
       </div>
 
-      {/* Ana içerik */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-        {/* Sol: Görseller */}
         <div>
           <div className="relative rounded-2xl overflow-hidden bg-gray-50 mb-4">
             <img src={mainImage} alt={product.name} className="w-full h-96 object-cover" />
@@ -123,10 +116,9 @@ export default function ProductDetail() {
           )}
         </div>
 
-        {/* Sağ: Bilgiler */}
         <div className="flex flex-col">
           <p className="text-sm text-blue-500 font-semibold uppercase tracking-wider mb-1">
-            {categoryName || 'Teknoloji'}
+            {product.category?.title || 'Teknoloji'}
           </p>
           <h1 className="text-3xl font-bold text-gray-800 mb-3">{product.name}</h1>
 
@@ -136,7 +128,7 @@ export default function ProductDetail() {
                 <Star key={i} size={18} fill={i < rating ? 'currentColor' : 'none'} className="text-yellow-400" />
               ))}
             </div>
-            <span className="text-sm text-gray-500">({product.sell_count || 0} satış)</span>
+            <span className="text-sm text-gray-500">({product.sellCount || 0} satış)</span>
           </div>
 
           <p className="text-3xl font-bold text-gray-900 mb-4">${product.price?.toFixed(2)}</p>
@@ -164,7 +156,6 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Benzer Ürünler */}
       {productList.length > 0 && (
         <div className="border-t pt-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Benzer Ürünler</h2>

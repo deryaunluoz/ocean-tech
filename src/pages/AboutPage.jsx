@@ -15,7 +15,7 @@ export default function AboutPage() {
         {/* Hikaye */}
         <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
           <div className="flex-1">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80"
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80"
               alt="Mağaza" className="rounded-2xl w-full h-80 object-cover shadow-lg" />
           </div>
           <div className="flex-1">

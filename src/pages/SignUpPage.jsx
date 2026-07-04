@@ -42,7 +42,7 @@ export default function SignUpPage() {
     }
 
     try {
-      await api.post('/signup', payload)
+      await api.post('/auth/signup', payload)
       toast.warning('Hesabı aktif etmek için e-postanızdaki linke tıklayın!')
       history.goBack()
     } catch (err) {

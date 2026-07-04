@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import ProductCard from '../components/ProductCard'
 import { fetchCategories, fetchProducts } from '../store/actions/productActions'
-import { ArrowRight, Truck, RefreshCw, Shield, Headphones } from 'lucide-react'
+import { ArrowRight, Truck, RefreshCw, Shield, Star, Zap } from 'lucide-react'
 
 const sliderSettings = {
   dots: true,
@@ -16,7 +16,7 @@ const sliderSettings = {
   autoplaySpeed: 4000,
 }
 
-const brands = ['Apple', 'Samsung', 'Sony', 'LG', 'Huawei', 'Xiaomi']
+const brands = ['Apple', 'Samsung', 'Sony', 'Dell', 'Huawei', 'Xiaomi', 'LG', 'Lenovo']
 
 export default function HomePage() {
   const dispatch = useDispatch()
@@ -27,7 +27,6 @@ export default function HomePage() {
     dispatch(fetchProducts({ limit: 8 }))
   }, [dispatch])
 
-  // En yüksek ratingli 5 kategori
   const topCategories = [...categories]
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 5)
@@ -35,62 +34,130 @@ export default function HomePage() {
   return (
     <div>
       {/* ── HERO SLIDER ── */}
-      <div className="bg-[#23A6F0] text-white overflow-hidden">
+      <div className="overflow-hidden">
         <Slider {...sliderSettings}>
+          {/* Slide 1 */}
           <div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-1">
-                <p className="text-sm font-semibold tracking-widest text-blue-100 uppercase mb-2">Yaz 2025 Koleksiyonu</p>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
-                  YENİ<br />KOLEKSİYON
-                </h1>
-                <p className="text-blue-100 mb-8 max-w-sm">
-                  Büyük nesnelerin nasıl davrandığını biliyoruz, ama küçük ölçekteki şeyleri bilmiyoruz.
-                </p>
-                <Link
-                  to="/shop"
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 font-bold py-3 px-8 rounded-md hover:bg-blue-50 transition"
-                >
-                  ŞİMDİ ALIŞVERİŞ YAP <ArrowRight size={18} />
-                </Link>
-              </div>
-              <div className="flex-1 flex justify-center">
-                <div className="w-72 h-72 md:w-96 md:h-96 bg-blue-400 rounded-full opacity-30 absolute" />
-                <img
-                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80"
-                  alt="Hero"
-                  className="relative z-10 w-64 md:w-80 rounded-2xl shadow-2xl object-cover"
-                />
+            <div className="bg-gradient-to-r from-gray-900 to-gray-700 text-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1">
+                  <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Yeni Sezon</span>
+                  <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-4 mb-4">
+                    iPhone 15 Pro<br />
+                    <span className="text-blue-400">Dubai'de!</span>
+                  </h1>
+                  <p className="text-gray-300 mb-8 max-w-sm text-lg">
+                    En son Apple teknolojisi şimdi Ocean Tech'te. Ücretsiz kargo ve 2 yıl garanti!
+                  </p>
+                  <div className="flex gap-4">
+                    <Link to="/shop" className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition">
+                      Hemen Al <ArrowRight size={18} />
+                    </Link>
+                    <Link to="/shop" className="inline-flex items-center gap-2 border border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-gray-900 transition">
+                      Keşfet
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <img
+                    src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-1inch-naturaltitanium?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009279096"
+                    alt="iPhone 15 Pro"
+                    className="w-64 md:w-80 rounded-2xl shadow-2xl object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Slide 2 */}
           <div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-1">
-                <p className="text-sm font-semibold tracking-widest text-blue-100 uppercase mb-2">Haftalık Ürün</p>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
-                  EN İYİ<br />TEKNOLOJİ
-                </h1>
-                <p className="text-blue-100 mb-8 max-w-sm">
-                  iPhone, Samsung, Sony ve daha fazlası. Dubai'nin en büyük teknoloji mağazası.
-                </p>
-                <Link
-                  to="/shop"
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 font-bold py-3 px-8 rounded-md hover:bg-blue-50 transition"
-                >
-                  KEŞFEDİN <ArrowRight size={18} />
-                </Link>
+            <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1">
+                  <span className="bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Çok Satan</span>
+                  <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-4 mb-4">
+                    Samsung<br />
+                    <span className="text-yellow-400">Galaxy S24</span>
+                  </h1>
+                  <p className="text-blue-100 mb-8 max-w-sm text-lg">
+                    Galaxy AI ile tanışın. Yapay zeka destekli en akıllı Samsung telefon.
+                  </p>
+                  <Link to="/shop" className="inline-flex items-center gap-2 bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition">
+                    Şimdi Satın Al <ArrowRight size={18} />
+                  </Link>
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <img
+                    src="https://images.samsung.com/is/image/samsung/assets/us/2501/pcd/smartphones/galaxy-s24/galaxy-S24-ft02-kv_DT.jpg"
+                    alt="Samsung Galaxy S24"
+                    className="w-64 md:w-80 rounded-2xl shadow-2xl object-cover"
+                  />
+                </div>
               </div>
-              <div className="flex-1 flex justify-center">
-                <img
-                  src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500&q=80"
-                  alt="Hero 2"
-                  className="relative z-10 w-64 md:w-80 rounded-2xl shadow-2xl object-cover"
-                />
+            </div>
+          </div>
+
+          {/* Slide 3 */}
+          <div>
+            <div className="bg-gradient-to-r from-slate-800 to-slate-600 text-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1">
+                  <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">En İyi Laptop</span>
+                  <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-4 mb-4">
+                    MacBook Pro<br />
+                    <span className="text-green-400">M3 Chip</span>
+                  </h1>
+                  <p className="text-gray-300 mb-8 max-w-sm text-lg">
+                    M3 işlemci ile inanılmaz performans. Profesyoneller için tasarlandı.
+                  </p>
+                  <Link to="/shop" className="inline-flex items-center gap-2 bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-400 transition">
+                    İncele <ArrowRight size={18} />
+                  </Link>
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <img
+                    src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spacegray-select-202310?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1697230830200"
+                    alt="MacBook Pro M3"
+                    className="w-64 md:w-80 rounded-2xl shadow-2xl object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </Slider>
+      </div>
+
+      {/* ── KAMPANYA BANERLARI ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-blue-50 rounded-2xl p-6 flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <Truck size={24} className="text-white" />
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800">Ücretsiz Kargo</h3>
+              <p className="text-gray-500 text-sm">200 AED üzeri siparişlerde</p>
+            </div>
+          </div>
+          <div className="bg-green-50 rounded-2xl p-6 flex items-center gap-4">
+            <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+              <RefreshCw size={24} className="text-white" />
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800">Kolay İade</h3>
+              <p className="text-gray-500 text-sm">14 gün içinde ücretsiz iade</p>
+            </div>
+          </div>
+          <div className="bg-orange-50 rounded-2xl p-6 flex items-center gap-4">
+            <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
+              <Shield size={24} className="text-white" />
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800">2 Yıl Garanti</h3>
+              <p className="text-gray-500 text-sm">Tüm ürünlerde resmi garanti</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ── MARKALAR ── */}
@@ -106,70 +173,47 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── EDİTÖR'ÜN SEÇİMİ (Top Kategoriler) ── */}
+      {/* ── KATEGORİLER ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-10">
-          <p className="text-xs font-bold text-gray-400 tracking-widest uppercase">EDİTÖRÜN SEÇİMİ</p>
+          <p className="text-xs font-bold text-blue-500 tracking-widest uppercase">Kategoriler</p>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-1">En Çok Satan Kategoriler</h2>
         </div>
 
         {topCategories.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {topCategories.slice(0, 1).map(cat => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {topCategories.map(cat => (
               <Link
                 key={cat.id}
-                to={`/shop/${cat.gender === 'k' ? 'kadin' : 'erkek'}/${cat.title?.toLowerCase()}/${cat.id}`}
-                className="relative rounded-xl overflow-hidden h-64 md:row-span-2 md:h-full group"
+                to={`/shop/teknoloji/${cat.title?.toLowerCase()}/${cat.id}`}
+                className="relative rounded-2xl overflow-hidden h-48 group shadow-md"
               >
-                <img src={cat.img} alt={cat.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-end p-6">
-                  <h3 className="text-white font-bold text-xl">{cat.title}</h3>
-                  <span className="text-white text-sm underline mt-1">Keşfet</span>
+                <img src={cat.img} alt={cat.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex flex-col justify-end p-4">
+                  <h3 className="text-white font-bold text-lg">{cat.title}</h3>
+                  <span className="text-blue-300 text-xs mt-1 flex items-center gap-1">
+                    <Star size={10} fill="currentColor" /> {cat.rating}
+                  </span>
                 </div>
               </Link>
             ))}
-            <div className="grid grid-cols-1 gap-4 md:col-span-1">
-              {topCategories.slice(1, 5).map(cat => (
-                <Link
-                  key={cat.id}
-                  to={`/shop/${cat.gender === 'k' ? 'kadin' : 'erkek'}/${cat.title?.toLowerCase()}/${cat.id}`}
-                  className="relative rounded-xl overflow-hidden h-40 group"
-                >
-                  <img src={cat.img} alt={cat.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-end p-4">
-                    <h3 className="text-white font-bold">{cat.title}</h3>
-                    <span className="text-white text-xs underline">Keşfet</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
           </div>
         ) : (
-          // Kategoriler yüklenirken placeholder
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['Telefon', 'Laptop', 'TV', 'Aksesuar'].map((cat) => (
-              <Link key={cat} to="/shop" className="relative rounded-xl overflow-hidden h-48 group">
-                <img
-                  src={`https://source.unsplash.com/400x300/?${cat.toLowerCase()},technology`}
-                  alt={cat}
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end p-4">
-                  <h3 className="text-white font-bold">{cat}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <div className="text-center text-gray-400 py-12">Kategoriler yükleniyor...</div>
         )}
       </div>
 
-      {/* ── ÇOK SATAN ÜRÜNLER ── */}
+      {/* ── ÖNE ÇIKAN ÜRÜNLER ── */}
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold text-gray-400 tracking-widest uppercase">Öne Çıkan Ürünler</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-1">ÇOK SATAN ÜRÜNLER</h2>
-            <p className="text-gray-500 text-sm mt-2">Tüm envanteri reserve etme fiyatlandırması dahildir.</p>
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <p className="text-xs font-bold text-blue-500 tracking-widest uppercase">Öne Çıkan</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-1">Çok Satan Ürünler</h2>
+            </div>
+            <Link to="/shop" className="flex items-center gap-2 text-blue-600 font-bold hover:underline">
+              Tümünü Gör <ArrowRight size={16} />
+            </Link>
           </div>
 
           {fetchState === 'FETCHING' && (
@@ -179,90 +223,76 @@ export default function HomePage() {
           )}
 
           {fetchState === 'FETCHED' && (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {productList.slice(0, 8).map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-              <div className="flex justify-center mt-10">
-                <Link
-                  to="/shop"
-                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-10 py-3 rounded-md font-bold transition"
-                >
-                  DAHA FAZLA ÜRÜN YÜKLE
-                </Link>
-              </div>
-            </>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {productList.slice(0, 8).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           )}
 
           {fetchState === 'FAILED' && (
             <p className="text-center text-gray-400 py-12">Ürünler yüklenirken bir hata oluştu.</p>
           )}
+
+          <div className="flex justify-center mt-10">
+            <Link to="/shop" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-10 py-3 rounded-lg font-bold transition">
+              DAHA FAZLA ÜRÜN
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* ── BİZ NE YAPIYORUZ ── */}
+      {/* ── ÖZEL TEKLİF BANNER ── */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Zap size={20} className="text-yellow-400" />
+              <span className="text-yellow-400 font-bold text-sm uppercase tracking-widest">Özel Teklif</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">Sony WH-1000XM5</h2>
+            <p className="text-blue-100 text-lg">Dünyanın En İyi Noise Cancelling Kulaklığı</p>
+            <p className="text-4xl font-bold mt-4">$349.99</p>
+          </div>
+          <div className="flex gap-4">
+            <Link to="/shop" className="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition flex items-center gap-2">
+              Hemen Al <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── HAKKIMIZDA ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 grid grid-cols-2 gap-4">
-            <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=300&q=80" alt="about1" className="rounded-2xl w-full h-48 object-cover" />
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&q=80" alt="about1" className="rounded-2xl w-full h-48 object-cover" />
             <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=300&q=80" alt="about2" className="rounded-2xl w-full h-48 object-cover mt-8" />
           </div>
           <div className="flex-1">
             <p className="text-xs font-bold text-blue-500 tracking-widest uppercase mb-2">Hakkımızda</p>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Yaptığımız şeyi seviyoruz</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Dubai'nin En Güvenilir<br />Teknoloji Mağazası</h2>
             <p className="text-gray-500 leading-relaxed mb-6">
-              Ocean Tech olarak Dubai'de teknoloji tutkunlarına en kaliteli ürünleri en uygun fiyatlarla sunuyoruz.
-              2010'dan beri 1 milyondan fazla müşteriye hizmet verdik.
+              Ocean Tech olarak 2010'dan beri Dubai'de teknoloji tutkunlarına en kaliteli ürünleri
+              en uygun fiyatlarla sunuyoruz. Apple, Samsung, Sony ve daha fazlası!
             </p>
             <div className="grid grid-cols-3 gap-4 mt-8">
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">15K</p>
+                <p className="text-3xl font-bold text-blue-600">15K+</p>
                 <p className="text-xs text-gray-400 mt-1">Mutlu Müşteri</p>
               </div>
               <div className="text-center border-x border-gray-100">
-                <p className="text-3xl font-bold text-gray-800">150+</p>
-                <p className="text-xs text-gray-400 mt-1">Çalışan</p>
+                <p className="text-3xl font-bold text-blue-600">500+</p>
+                <p className="text-xs text-gray-400 mt-1">Marka</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">15</p>
+                <p className="text-3xl font-bold text-blue-600">15</p>
                 <p className="text-xs text-gray-400 mt-1">Yıllık Deneyim</p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── HİZMETLER ── */}
-      <div className="bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-bold text-gray-400 tracking-widest uppercase">Öne Çıkan Hizmetler</p>
-            <h2 className="text-2xl font-bold text-gray-800 mt-1">EN İYİ HİZMETLER</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <Truck size={28} className="text-blue-600" />
-              </div>
-              <h3 className="font-bold text-gray-800 mb-2">Kolay Kazanç</h3>
-              <p className="text-gray-500 text-sm">Satın alımlarınızda puan kazanın ve indirim elde edin.</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <RefreshCw size={28} className="text-green-600" />
-              </div>
-              <h3 className="font-bold text-gray-800 mb-2">Somut</h3>
-              <p className="text-gray-500 text-sm">100.000'den fazla ürün ve hızlı teslimat.</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                <Shield size={28} className="text-orange-600" />
-              </div>
-              <h3 className="font-bold text-gray-800 mb-2">Hızlı Büyüme</h3>
-              <p className="text-gray-500 text-sm">Her ay binlerce yeni ürün ekliyoruz.</p>
-            </div>
+            <Link to="/about" className="mt-8 inline-flex items-center gap-2 bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">
+              Hakkımızda <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </div>

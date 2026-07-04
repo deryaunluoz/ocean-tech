@@ -1,22 +1,30 @@
 import { Link } from 'react-router-dom'
-import { ShoppingCart, User, Menu, X, Search, Heart, Package, MapPin, CreditCard, Truck, LogOut } from 'lucide-react'
+import { ShoppingCart, User, Menu, X, Search, Heart, Package, MapPin, CreditCard, LogOut, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../store/actions/clientActions'
 import api from '../api/axios'
 
+const menuItems = [
+  { label: 'Telefonlar', path: '/shop/teknoloji/telefon/1' },
+  { label: 'Laptoplar', path: '/shop/teknoloji/laptop/2' },
+  { label: 'Kulaklıklar', path: '/shop/teknoloji/kulaklik/3' },
+  { label: 'TV', path: '/shop/teknoloji/tv/4' },
+  { label: 'Tabletler', path: '/shop/teknoloji/tablet/5' },
+  { label: 'Aksesuar', path: '/shop/teknoloji/aksesuar/6' },
+  { label: 'Oyun', path: '/shop/teknoloji/oyun/7' },
+  { label: 'Mutfak', path: '/shop/teknoloji/mutfak/8' },
+  { label: 'Süpürge', path: '/shop/teknoloji/supurge/9' },
+]
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isShopOpen, setIsShopOpen] = useState(false)
   const [isUserOpen, setIsUserOpen] = useState(false)
   const dispatch = useDispatch()
   const cart = useSelector(state => state.shoppingCart.cart)
   const user = useSelector(state => state.client.user)
-  const categories = useSelector(state => state.product.categories)
 
   const totalItems = cart.reduce((sum, item) => sum + item.count, 0)
-  const kadinCategories = categories.filter(c => c.gender === 'k')
-  const erkekCategories = categories.filter(c => c.gender === 'e')
 
   const handleLogout = () => {
     localStorage.removeItem('token')
@@ -27,75 +35,34 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      {/* Üst bar */}
-      <div className="bg-gray-800 text-white text-xs py-2 px-4 flex justify-between items-center">
-        <span>📞 +971 4 000 0000 &nbsp;|&nbsp; ✉️ info@oceantech.ae</span>
-        <span>Bizi takip edin ve %20 indirim kazanın!</span>
+      {/* Top bar */}
+      <div className="bg-gray-900 text-white text-xs py-2 px-4 flex justify-between items-center">
+        <span>📞 +971 4 000 0000 &nbsp;|&nbsp; ✉️ info@oceantech.ae &nbsp;|&nbsp; 🚚 200 AED üzeri ücretsiz kargo</span>
+        <span className="hidden md:block">Bizi takip edin ve %20 indirim kazanın!</span>
       </div>
 
-      {/* Ana Header */}
+      {/* Main header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-4">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition">
+          <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition whitespace-nowrap">
             🌊 Ocean Tech
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
-            <Link to="/" className="hover:text-blue-600 transition">Anasayfa</Link>
+          {/* Search bar */}
+          <div className="flex-1 hidden md:flex items-center border-2 border-gray-200 rounded-lg overflow-hidden hover:border-blue-400 transition">
+            <input
+              type="text"
+              placeholder="Ürün, marka veya kategori ara..."
+              className="flex-1 px-4 py-2 text-sm outline-none"
+            />
+            <button className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition">
+              <Search size={18} />
+            </button>
+          </div>
 
-            {/* Shop Dropdown */}
-            <div className="relative" onMouseEnter={() => setIsShopOpen(true)} onMouseLeave={() => setIsShopOpen(false)}>
-              <button className="hover:text-blue-600 transition flex items-center gap-1">
-                Mağaza ▾
-              </button>
-              {isShopOpen && (
-                <div className="absolute top-full left-0 bg-white shadow-xl border border-gray-100 rounded-lg p-6 w-80 grid grid-cols-2 gap-4 z-50">
-                  <div>
-                    <h4 className="font-bold text-gray-800 mb-3">Kadın</h4>
-                    {kadinCategories.length > 0 ? kadinCategories.map(c => (
-                      <Link key={c.id} to={`/shop/kadin/${c.title.toLowerCase()}/${c.id}`}
-                        className="block text-gray-500 hover:text-blue-600 py-1 text-sm transition">
-                        {c.title}
-                      </Link>
-                    )) : (
-                      <>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">Telefon</Link>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">Laptop</Link>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">Tablet</Link>
-                      </>
-                    )}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-800 mb-3">Erkek</h4>
-                    {erkekCategories.length > 0 ? erkekCategories.map(c => (
-                      <Link key={c.id} to={`/shop/erkek/${c.title.toLowerCase()}/${c.id}`}
-                        className="block text-gray-500 hover:text-blue-600 py-1 text-sm transition">
-                        {c.title}
-                      </Link>
-                    )) : (
-                      <>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">TV</Link>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">Aksesuar</Link>
-                        <Link to="/shop" className="block text-gray-500 hover:text-blue-600 py-1 text-sm">Gaming</Link>
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <Link to="/about" className="hover:text-blue-600 transition">Hakkımızda</Link>
-            <Link to="/blog" className="hover:text-blue-600 transition">Blog</Link>
-            <Link to="/contact" className="hover:text-blue-600 transition">İletişim</Link>
-          </nav>
-
-          {/* Sağ İkonlar */}
+          {/* Right icons */}
           <div className="flex items-center space-x-4 text-gray-600">
-            <Link to="/search" className="hover:text-blue-600 transition hidden md:block">
-              <Search size={20} />
-            </Link>
             <Link to="/favorites" className="hover:text-blue-600 transition hidden md:block">
               <Heart size={20} />
             </Link>
@@ -108,7 +75,6 @@ export default function Header() {
               )}
             </Link>
 
-            {/* Kullanıcı Menüsü */}
             {user?.name ? (
               <div className="relative hidden md:block">
                 <button
@@ -117,22 +83,19 @@ export default function Header() {
                 >
                   <User size={18} />
                   <span>{user.name}</span>
-                  <span className="text-xs">▾</span>
+                  <ChevronDown size={14} />
                 </button>
 
                 {isUserOpen && (
                   <div className="absolute right-0 top-full mt-2 bg-white shadow-xl border border-gray-100 rounded-xl w-56 z-50 overflow-hidden">
-                    {/* Kullanıcı Bilgisi */}
                     <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
                       <p className="font-bold text-gray-800 text-sm">{user.name}</p>
                       <p className="text-gray-500 text-xs mt-0.5">{user.email}</p>
                     </div>
-
-                    {/* Menü Öğeleri */}
                     <div className="py-2">
                       <Link to="/orders" onClick={() => setIsUserOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
-                        <Package size={16} /> Geçmiş Siparişlerim
+                        <Package size={16} /> Siparişlerim
                       </Link>
                       <Link to="/favorites" onClick={() => setIsUserOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
@@ -146,13 +109,7 @@ export default function Header() {
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
                         <CreditCard size={16} /> Kartlarım
                       </Link>
-                      <Link to="/tracking" onClick={() => setIsUserOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
-                        <Truck size={16} /> Kargo Takibi
-                      </Link>
                     </div>
-
-                    {/* Çıkış */}
                     <div className="border-t border-gray-100 py-2">
                       <button onClick={handleLogout}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition w-full text-left">
@@ -166,11 +123,10 @@ export default function Header() {
               <div className="hidden md:flex items-center gap-2 text-sm font-medium">
                 <Link to="/login" className="hover:text-blue-600 transition">Giriş</Link>
                 <span className="text-gray-300">|</span>
-                <Link to="/signup" className="hover:text-blue-600 transition">Kayıt</Link>
+                <Link to="/signup" className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition text-xs">Kayıt Ol</Link>
               </div>
             )}
 
-            {/* Mobile hamburger */}
             <button className="md:hidden hover:text-blue-600 transition" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -178,17 +134,35 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Category nav */}
+      <div className="hidden md:block border-t border-gray-100 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-6 overflow-x-auto">
+            {menuItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                className="text-sm font-medium text-gray-600 hover:text-blue-600 py-3 whitespace-nowrap border-b-2 border-transparent hover:border-blue-600 transition"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-3 text-sm font-medium text-gray-700">
-          <Link to="/" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">Anasayfa</Link>
-          <Link to="/shop" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">Mağaza</Link>
-          <Link to="/about" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">Hakkımızda</Link>
-          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">İletişim</Link>
+          {menuItems.map((item) => (
+            <Link key={item.label} to={item.path} onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">
+              {item.label}
+            </Link>
+          ))}
+          <hr />
           {user?.name ? (
             <>
               <Link to="/orders" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">Siparişlerim</Link>
-              <Link to="/favorites" onClick={() => setIsMenuOpen(false)} className="hover:text-blue-600">Favorilerim</Link>
               <button onClick={handleLogout} className="text-red-500 text-left">Çıkış Yap</button>
             </>
           ) : (

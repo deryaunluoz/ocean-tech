@@ -10,7 +10,10 @@ export default function ProductCard({ product }) {
   const favorites = useSelector(state => state.client.favorites)
   const isFavorite = favorites.some(p => p.id === product.id)
 
-  const image = product.images?.[0]?.url || 'https://via.placeholder.com/300'
+  const image = product.images && product.images.length > 0
+    ? product.images[product.images.length - 1].url
+    : 'https://placehold.co/300x300'
+
   const categoryName = product.category?.title?.toLowerCase() || 'kategori'
   const gender = product.category?.gender === 'k' ? 'kadin' : 'erkek'
   const slug = product.name?.toLowerCase().replace(/\s+/g, '-') || 'urun'

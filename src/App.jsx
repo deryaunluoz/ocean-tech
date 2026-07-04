@@ -18,6 +18,14 @@ import OrdersPage from './pages/OrdersPage'
 import AddressesPage from './pages/AddressesPage'
 import CardsPage from './pages/CardsPage'
 import FavoritesPage from './pages/FavoritesPage'
+import ReturnPolicyPage from './pages/ReturnPolicyPage'
+import WarrantyPage from './pages/WarrantyPage'
+import DeliveryPage from './pages/DeliveryPage'
+import FaqPage from './pages/FaqPage'
+import CareerPage from './pages/CareerPage'
+import BlogPage from './pages/BlogPage'
+import PrivacyPage from './pages/PrivacyPage'
+import TermsPage from './pages/TermsPage'
 import { autoLogin } from './store/actions/clientActions'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -48,6 +56,14 @@ function App() {
           <Route path="/addresses" component={AddressesPage} />
           <Route path="/cards" component={CardsPage} />
           <Route path="/favorites" component={FavoritesPage} />
+          <Route path="/iade-politikasi" component={ReturnPolicyPage} />
+          <Route path="/garanti" component={WarrantyPage} />
+          <Route path="/teslimat" component={DeliveryPage} />
+          <Route path="/sss" component={FaqPage} />
+          <Route path="/kariyer" component={CareerPage} />
+          <Route path="/blog" component={BlogPage} />
+          <Route path="/gizlilik" component={PrivacyPage} />
+          <Route path="/kullanim-sartlari" component={TermsPage} />
         </Switch>
       </PageContent>
       <Footer />
