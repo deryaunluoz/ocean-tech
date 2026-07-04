@@ -23,7 +23,7 @@ export default function Shop() {
 
   useEffect(() => {
     const params = { limit, offset }
-    if (categoryId) params.category = categoryId
+    if (categoryId) params.category = Number(categoryId)
     if (sort) params.sort = sort
     if (filterText) params.filter = filterText
     dispatch(fetchProducts(params))
@@ -32,7 +32,7 @@ export default function Shop() {
   const handleFilter = () => {
     dispatch(setOffset(0))
     const params = { limit, offset: 0 }
-    if (categoryId) params.category = categoryId
+    if (categoryId) params.category = Number(categoryId)
     if (sort) params.sort = sort
     if (filterText) params.filter = filterText
     dispatch(fetchProducts(params))
@@ -45,7 +45,6 @@ export default function Shop() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Tüm Ürünler</h1>
 
-      {/* Filtre */}
       <div className="flex flex-col sm:flex-row gap-3 mb-8 items-start sm:items-center">
         <p className="text-gray-500 text-sm flex-1">Toplam {total} ürün</p>
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
@@ -75,14 +74,12 @@ export default function Shop() {
         </div>
       </div>
 
-      {/* Yükleniyor */}
       {fetchState === 'FETCHING' && (
         <div className="flex justify-center py-16">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Ürünler */}
       {fetchState === 'FETCHED' && (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -91,7 +88,6 @@ export default function Shop() {
             ))}
           </div>
 
-          {/* Pagination - T15 */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 mt-10">
               <button

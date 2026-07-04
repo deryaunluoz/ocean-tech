@@ -44,7 +44,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId" component={ProductDetail} />
-          <Route path="/shop" component={Shop} />
+          <Route path="/shop/:gender/:categoryName/:categoryId" component={Shop} />
+<Route path="/shop" component={Shop} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/team" component={TeamPage} />
           <Route path="/about" component={AboutPage} />
